@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.xzh.imagepicker.view.SquareRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="1dp">
+
+    <com.xzh.imagepicker.view.SquareImageView
+        android:id="@+id/item_pre_image"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_margin="5dp"
+        android:background="@mipmap/icon_image_default"
+        android:scaleType="fitXY" />
+
+    <com.xzh.imagepicker.view.SquareImageView
+        android:id="@+id/item_image_border"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/image_border"
+        android:scaleType="fitXY"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/item_pre_video"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginRight="12dp"
+        android:gravity="center_vertical"
+        android:src="@mipmap/icon_video" />
+
+
+</com.xzh.imagepicker.view.SquareRelativeLayout>
