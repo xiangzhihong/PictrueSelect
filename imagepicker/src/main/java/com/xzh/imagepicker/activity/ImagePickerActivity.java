@@ -60,8 +60,6 @@ public class ImagePickerActivity extends AppCompatActivity implements ImagePicke
     private List<MediaFolder> mMediaFolderList;
     private static final int REQUEST_SELECT_IMAGES_CODE = 0x01;
     private static final int REQUEST_PERMISSION_CAMERA_CODE = 0x03;
-    private static final int LIGHT_OFF = 0;
-    private static final int LIGHT_ON = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -173,7 +171,7 @@ public class ImagePickerActivity extends AppCompatActivity implements ImagePicke
             @Override
             public void onClick(View v) {
                 if (mImageFolderPopupWindow != null) {
-                    setLightMode(LIGHT_OFF);
+                    setLightMode(0.7f);
                     mImageFolderPopupWindow.showAsDropDown(mRlBottom, 0, 0);
                 }
             }
@@ -253,7 +251,7 @@ public class ImagePickerActivity extends AppCompatActivity implements ImagePicke
                     mImageFolderPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
                         @Override
                         public void onDismiss() {
-                            setLightMode(LIGHT_ON);
+                            setLightMode(1.0f);
                         }
                     });
                     updateCommitButton();
@@ -332,16 +330,9 @@ public class ImagePickerActivity extends AppCompatActivity implements ImagePicke
     }
 
 
-    private void setLightMode(int lightMode) {
+    private void setLightMode(float lightMode) {
         WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
-        switch (lightMode) {
-            case LIGHT_OFF:
-                layoutParams.alpha = 0.7f;
-                break;
-            case LIGHT_ON:
-                layoutParams.alpha = 1.0f;
-                break;
-        }
+        layoutParams.alpha = lightMode;
         getWindow().setAttributes(layoutParams);
     }
 
