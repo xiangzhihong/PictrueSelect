@@ -178,6 +178,7 @@ public class ImagePickerActivity extends AppCompatActivity implements ImagePicke
         mIvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SelectionManager.getInstance().removeAll();
                 finish();
             }
         });
