@@ -8,4 +8,15 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="horizontal_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:background">#cecece</item>
+    </style>
+
+    <style name="animation_bottom_to_top">
+        <item name="android:windowEnterAnimation">@anim/in_bottom_to_top</item>
+        <item name="android:windowExitAnimation">@anim/out_top_to_bottom</item>
+    </style>
+
 </resources>

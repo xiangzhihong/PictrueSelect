@@ -53,7 +53,7 @@ public class ImagePickerAdapter extends RecyclerView.Adapter<ImagePickerAdapter.
         if (mMediaFileList == null) {
             return 0;
         }
-        return  mMediaFileList.size();
+        return mMediaFileList.size();
     }
 
     public MediaFile getMediaFile(int position) {
@@ -64,17 +64,13 @@ public class ImagePickerAdapter extends RecyclerView.Adapter<ImagePickerAdapter.
     @NonNull
     @Override
     public BaseHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view=null;
-//        if (viewType == ItemType.ITEM_TYPE_CAMERA) {
-//            view = LayoutInflater.from(mContext).inflate(R.layout.item_recyclerview_camera, null);
-//            return new BaseHolder(view);
-//        }
+        View view = null;
         if (viewType == ItemType.ITEM_TYPE_IMAGE) {
-            view = LayoutInflater.from(mContext).inflate(R.layout.item_recyclerview_image, null);
+            view = LayoutInflater.from(mContext).inflate(R.layout.item_picker_image, null);
             return new ImageHolder(view);
         }
         if (viewType == ItemType.ITEM_TYPE_VIDEO) {
-            view = LayoutInflater.from(mContext).inflate(R.layout.item_recyclerview_video, null);
+            view = LayoutInflater.from(mContext).inflate(R.layout.item_picker_video, null);
             return new VideoHolder(view);
         }
         return null;
@@ -140,8 +136,8 @@ public class ImagePickerAdapter extends RecyclerView.Adapter<ImagePickerAdapter.
             e.printStackTrace();
         }
 
+        //如果是gif图，显示gif标识
         if (mediaHolder instanceof ImageHolder) {
-            //如果是gif图，显示gif标识
             String suffix = imagePath.substring(imagePath.lastIndexOf(".") + 1);
             if (suffix.toUpperCase().equals("GIF")) {
                 ((ImageHolder) mediaHolder).mImageGif.setVisibility(View.VISIBLE);
@@ -149,8 +145,8 @@ public class ImagePickerAdapter extends RecyclerView.Adapter<ImagePickerAdapter.
                 ((ImageHolder) mediaHolder).mImageGif.setVisibility(View.GONE);
             }
         }
+        //如果是视频，需要显示视频时长
         if (mediaHolder instanceof VideoHolder) {
-            //如果是视频，需要显示视频时长
             String duration = Utils.getVideoDuration(mediaFile.getDuration());
             ((VideoHolder) mediaHolder).mVideoDuration.setText(duration);
         }
@@ -159,6 +155,7 @@ public class ImagePickerAdapter extends RecyclerView.Adapter<ImagePickerAdapter.
 
     class ImageHolder extends MediaHolder {
         public ImageView mImageGif;
+
         public ImageHolder(View itemView) {
             super(itemView);
             mImageGif = itemView.findViewById(R.id.iv_item_gif);
@@ -168,6 +165,7 @@ public class ImagePickerAdapter extends RecyclerView.Adapter<ImagePickerAdapter.
 
     class VideoHolder extends MediaHolder {
         private TextView mVideoDuration;
+
         public VideoHolder(View itemView) {
             super(itemView);
             mVideoDuration = itemView.findViewById(R.id.tv_item_videoDuration);

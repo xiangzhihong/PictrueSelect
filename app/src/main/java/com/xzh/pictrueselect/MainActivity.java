@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.xzh.imagepicker.ImagePicker;
@@ -16,8 +17,10 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private TextView mTextView;
-    private static final int REQUEST_SELECT_IMAGES_CODE = 0x01;
-//    private ArrayList<String> mImagePaths;
+    private Button mSelectImages;
+
+    private int REQUEST_SELECT_IMAGES_CODE = 0x01;
+    private CameraDialog dialog=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,17 +34,30 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.bt_select_images).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImagePicker.getInstance()
-                        .setTitle("相册与视频")
-                        .showImage(true)//设置是否展示图片
-                        .showVideo(true)//设置是否展示视频
-                        .setMaxCount(9)//设置最大选择图片数目(默认为1，单选)
-                        .setImageLoader(new GlideLoader())//设置自定义图片加载器
-                        .start(MainActivity.this, REQUEST_SELECT_IMAGES_CODE);
+                dialog=new CameraDialog(MainActivity.this);
+                dialog.show();
+                dialog.setOnClickListener(new CameraDialog.OnItemClickListener() {
+                    @Override
+                    public void onClick(View v, CameraDialog.ClickType type) {
+                        if (type==CameraDialog.ClickType.ALBUM){
+                            initPicker();
+                        }
+                    }
+                });
+
             }
         });
     }
 
+    private void initPicker() {
+        ImagePicker.getInstance()
+                .setTitle("相册与视频")
+                .showImage(true)//设置是否展示图片
+                .showVideo(true)//设置是否展示视频
+                .setMaxCount(9)//设置最大选择图片数目(默认为1，单选)
+                .setImageLoader(new GlideLoader())
+                .start(this, REQUEST_SELECT_IMAGES_CODE);
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
