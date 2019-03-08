@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -47,6 +48,7 @@ public class ImagePickerActivity extends AppCompatActivity implements ImagePicke
 
     private TextView mTvTitle;
     private TextView mTvCommit;
+    private ImageView mIvBack;
     private TextView mTvPreview;
     private RecyclerView mRecyclerView;
     private TextView mTvFolders;
@@ -144,12 +146,19 @@ public class ImagePickerActivity extends AppCompatActivity implements ImagePicke
     }
 
     private void initView() {
+        mIvBack = findViewById(R.id.iv_actionBar_back);
         mTvTitle = findViewById(R.id.tv_title);
         mTvCommit = findViewById(R.id.tv_commit);
         mTvPreview = findViewById(R.id.tv_preview);
         mRecyclerView = findViewById(R.id.rv_images);
         mTvFolders = findViewById(R.id.tv_folders);
         mRlBottom = findViewById(R.id.rl_bottom);
+
+        if (TextUtils.isEmpty(mTitle)) {
+            mTvTitle.setText(getString(R.string.image_picker));
+        } else {
+            mTvTitle.setText(mTitle);
+        }
     }
 
     private void initRecycle() {
@@ -166,6 +175,12 @@ public class ImagePickerActivity extends AppCompatActivity implements ImagePicke
 
 
     private void initClick() {
+        mIvBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         //选择Folder
         mTvFolders.setOnClickListener(new View.OnClickListener() {
             @Override
