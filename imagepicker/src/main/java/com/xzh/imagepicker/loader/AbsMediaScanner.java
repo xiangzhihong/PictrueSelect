@@ -10,47 +10,22 @@ import java.util.ArrayList;
 
 public abstract class AbsMediaScanner<T> {
 
-    /**
-     * 查询URI
-     *
-     * @return
-     */
+    //查询URI
     protected abstract Uri getScanUri();
 
-    /**
-     * 查询列名
-     *
-     * @return
-     */
+    //查询列名
     protected abstract String[] getProjection();
 
-    /**
-     * 查询条件
-     *
-     * @return
-     */
+    //查询条件
     protected abstract String getSelection();
 
-    /**
-     * 查询条件值
-     *
-     * @return
-     */
+    //查询条件值
     protected abstract String[] getSelectionArgs();
 
-    /**
-     * 查询排序
-     *
-     * @return
-     */
+    //查询排序
     protected abstract String getOrder();
 
-    /**
-     * 对外暴露游标，让开发者灵活构建对象
-     *
-     * @param cursor
-     * @return
-     */
+    //对外暴露游标
     protected abstract T parse(Cursor cursor);
 
     private Context mContext;
@@ -59,11 +34,7 @@ public abstract class AbsMediaScanner<T> {
         this.mContext = context;
     }
 
-    /**
-     * 根据查询条件进行媒体库查询，隐藏查询细节，让开发者更专注业务
-     *
-     * @return
-     */
+    //根据查询条件进行媒体库查询
     public ArrayList<T> queryMedia() {
         ArrayList<T> list = new ArrayList<>();
         ContentResolver contentResolver = mContext.getContentResolver();
