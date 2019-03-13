@@ -87,6 +87,7 @@ public class ImagePreActivity extends AppCompatActivity {
         mSelectList.clear();
         preViewAdapter = new ImagePreThumbAdapter(this, mSelectList);
         mRePreImage.setAdapter(preViewAdapter);
+        mRePreImage.smoothScrollToPosition(mPosition);
     }
 
     private void initData() {
@@ -193,6 +194,7 @@ public class ImagePreActivity extends AppCompatActivity {
             mSelectList.remove(mMediaFileList.get(currentPos));
         }
         preViewAdapter.notifyDataSetChanged();
+        mRePreImage.smoothScrollToPosition(mPosition);
     }
 
     private void updateCommitButton() {
